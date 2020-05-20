@@ -9,6 +9,6 @@ node('Linux')
     sh 'mvn -B -X clean install'
   }
   stage('Tomcat Deploy'){
-    sh 'curl --upload-file target/FRIENDS9.0.0.1.SNAPSHOT.war "http://ak:ashok@54.87.190.88:8080/manager/deploy?path=/<context>&update=true"'
+    sh 'curl -T "target/FRIENDS9.0.0.1.SNAPSHOT.war" "http://ak:ashok@54.211.131.160:8080/manager/text/deploy?path=/myapp&update=true"'
   }
 }
