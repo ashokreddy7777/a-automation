@@ -15,7 +15,7 @@ pipeline {
         '''
       }
     }
-  } 
+   
     stage('Deploy to Tomcat') {
       steps {
         sh '''
@@ -24,6 +24,6 @@ pipeline {
       }
     }
   }  
-
+}
     
   
