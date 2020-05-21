@@ -1,14 +1,23 @@
-node('Linux')
-{
-  stage "Docker Build"
-  def maven = docker.image ('maven:latest')
-  maven.pull() // make sure the latest available from Docker Hub
-  maven.inside
-  {
-    git 'https://github.com/ashokreddy7777/a-automation.git'
-    sh 'mvn -B -X clean install'
+pipeline {
+  agent { lable 'lin'}
+  options { timeout (time: 1, unit:'HOURS')}
+  tools {
+    maven 'maven 3.6.3'
+    jdk 'jdk8'
   }
-  stage('Tomcat Deploy'){
-    sh 'curl -T "./target/FRIENDS9.0.0.1.SNAPSHOT.war" "http://ak:ashok@54.211.131.160:8080/manager/text/deploy?path=/myapp&update=true"'
+  stages {
+    stage('Install Tools') {
+      steps {
+        sh ''''
+        echo "PATH = ${PATH}"
+        echo "M2_HOME = ${M2_HOME}"
+        '''
+      }
+    stage ('Build') {
+      steps {
+        sh 'mvn -X install'
+      }
+    }  
+    }
   }
 }
