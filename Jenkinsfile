@@ -15,7 +15,15 @@ pipeline {
         '''
       }
     }
+  } 
+    stage('Deploy to Tomcat') {
+      steps {
+        sh '''
+           sh ./deploy.sh
+        '''
+      }
+    }
   }  
-}
+
     
   
