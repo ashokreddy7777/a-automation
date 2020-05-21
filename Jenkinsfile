@@ -1,9 +1,9 @@
 pipeline {
-  agent { lable 'lin'}
+  agent { label 'lin'}
   options { timeout (time: 1, unit:'HOURS')}
   tools {
-    maven 'maven 3.6.3'
-    jdk 'jdk8'
+    maven 'maven'
+    jdk 'java'
   }
   stages {
     stage('Install Tools') {
@@ -13,11 +13,13 @@ pipeline {
         echo "M2_HOME = ${M2_HOME}"
         '''
       }
+    }
     stage ('Build') {
       steps {
         sh 'mvn -X install'
       }
-    }  
     }
-  }
+  }  
 }
+    
+  
