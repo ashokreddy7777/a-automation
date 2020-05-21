@@ -23,6 +23,11 @@ pipeline {
         '''
       }
     }
+    stage('cleanup') {
+      steps {
+        deleteDir();
+      }
+    } 
   }  
 }
     
