@@ -6,17 +6,13 @@ pipeline {
     jdk 'java'
   }
   stages {
-    stage('Install Tools') {
+    stage('Build') {
       steps {
         sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
+            mvn -X clean install
         '''
-      }
-    }
-    stage ('Build') {
-      steps {
-        sh 'mvn -X install'
       }
     }
   }  
