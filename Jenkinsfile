@@ -15,10 +15,9 @@ pipeline{
         '''     
       }
     }
-<<<<<<< HEAD
     stage('Tomcat Deploy'){
       steps{
-        deploy adapters: [tomcat9(credentialsId: 'agent_linux', path: '', url: 'http://54.84.183.55:8080')], contextPath: null, war: '"**/*.war"'
+        deploy adapters: [tomcat9(credentialsId: 'agent_linux', path: '', url: 'http://54.175.110.40:8080')], contextPath: null, war: '"**/*.war"'
       }
     }
   }
@@ -28,39 +27,3 @@ pipeline{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-   
-    stage('Deploy to Tomcat') {
-      steps {
-        sh '''
-           sh ./deploy.sh
-        '''
-      }
-    }
-    stage('cleanup') {
-      steps {
-        deleteDir();
-      }
-    } 
-  }  
-}
->>>>>>> 755c406bdd1edfe014f3e69a1d04161a6982c91d
-    
-  
