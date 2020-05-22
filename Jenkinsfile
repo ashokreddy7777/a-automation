@@ -17,7 +17,7 @@ pipeline{
     }
     stage('Tomcat Deploy'){
       steps{
-        deploy adapters: [tomcat9(credentialsId: 'agent_linux', path: '', url: 'http://54.175.110.40:8080')], contextPath: null, war: '"**/*.war"'
+        deploy adapters: [tomcat9(credentialsId: 'agent_linux', path: '', url: 'http://54.175.110.40:8080')], contextPath: null, war: '**/*.war'
       }
     }
     stage('ws cleanup'){
