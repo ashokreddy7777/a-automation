@@ -15,7 +15,6 @@ pipeline{
         '''     
       }
     }
-<<<<<<< HEAD
     stage('Tomcat Deploy'){
       steps{
         deploy adapters: [tomcat9(credentialsId: 'agent_linux', path: '', url: 'http://54.84.183.55:8080')], contextPath: null, war: '"**/*.war"'
