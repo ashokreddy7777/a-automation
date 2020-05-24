@@ -6,18 +6,30 @@ pipeline{
     jdk 'java'
   }
   stages{
-    stage('Build'){
+    stage('Build && SonarQube analysis'){
       steps{
+        withSonarQubeEnv ('sonarqube'){
         sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
-            mvn -X clean install
+            mvn -X clean package sonar:sonar
         '''     
+        } 
+      }
+    }
+    stage('Quality Gate'){
+      steps{
+        timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+        }
       }
     }
     stage('Tomcat Deploy'){
       steps{
-        deploy adapters: [tomcat9(credentialsId: 'agent_linux', path: '', url: 'http://34.201.67.144:8080')], contextPath: null, war: '**/*.war'
+        sh '''
+           cp '**/*.war' /opt/tomcat/webapps/
+           /opt/tomcat/bin/startup.sh
+        '''    
       }
     }
     stage('ws cleanup'){
