@@ -27,7 +27,7 @@ pipeline{
     stage('Tomcat Deploy'){
       steps{
         sh '''
-           cp /home/ak/jenkins_home/workspace/a-automation/friends-9-application/target/FRIENDS9-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/
+           cp /home/ak/jenkins_home/workspace/a-automation/friends-9-application/target/*.war /opt/tomcat/webapps/
            /opt/tomcat/bin/startup.sh
         '''    
       }
