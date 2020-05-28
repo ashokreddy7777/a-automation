@@ -32,6 +32,11 @@ pipeline{
         '''    
       }
     }
+    stage('upload to s3'){
+      steps{
+        s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: true, dontWaitForConcurrentBuildCompletion: false, pluginFailureResultConstraint: 'FAILURE', profileName: 's3', userMetadata: []
+      }
+    }
     stage('ws cleanup'){
       steps{
         cleanWs()
