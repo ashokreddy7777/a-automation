@@ -60,10 +60,5 @@ pipeline{
         cleanWs()
       }
     }
-    stage('Email'){
-      steps{
-        emailext body: '', subject: '', to: 'ashokvardhanreddy96@gmail.com'
-      }
-    }
   }
 }
