@@ -12,7 +12,7 @@ pipeline{
         sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
-            mvn -X clean package sonar:sonar
+            mvn -X package sonar:sonar
         '''     
         } 
       }
@@ -27,7 +27,7 @@ pipeline{
     stage('Tomcat Deploy'){
       steps{
         sh '''
-           cp /home/ak/jenkins_home/workspace/a-automation/friends-9-application/target/*.war /opt/tomcat/webapps/
+           cp **/*.war /opt/tomcat/webapps/
            /opt/tomcat/bin/startup.sh
         '''    
       }
