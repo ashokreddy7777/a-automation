@@ -60,5 +60,10 @@ pipeline{
         cleanWs()
       }
     }
+    stage('Email'){
+      steps{
+        mail bcc: '', body: 'This email is regarding Jenkins pipeline status.', cc: '', from: '', replyTo: '', subject: 'Jenkins', to: 'ashokvardhanreddy96@gmail.com'
+      }
+    }
   }
 }
