@@ -24,11 +24,10 @@ pipeline{
         }
       }
     }
-    stage('Deploy to tomcat'){
+    stage('Ansible Deployment'){
       steps{
         sh '''
-           cp **/*.war /opt/tomcat/webapps/
-           /opt/tomcat/bin/startup.sh
+           ansible-playbook /home/ak/automation/playbooks/tomcat.yml --inventory-file /home/ak/automation/inventory
         '''    
       }
     }
