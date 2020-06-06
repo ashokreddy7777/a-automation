@@ -27,14 +27,14 @@ pipeline{
     stage('s3 upload'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Upload(bucket: 'a-automation', file: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target/*.war', path: './')
+          s3Upload(bucket: 'a-automation', file: 'FRIENDS9-0.0.1-SNAPSHOT.war', path: './')
         }
       }
     }
     stage('s3 download'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Download(bucket: 'a-automation', file: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target/*.war', path: './')
+          s3Download(bucket: 'a-automation', file: 'FRIENDS9-0.0.1-SNAPSHOT.war', path: './')
         }
       }
     }
