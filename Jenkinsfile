@@ -27,14 +27,14 @@ pipeline{
     stage('s3 upload'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Upload(path: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target', includePathPattern: '**/*', bucket: 'a-automation', path: './')
+          s3Upload(path: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target', includePathPattern: '**/*.war', bucket: 'a-automation', path: './')
         }
       }
     }
     stage('s3 download'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Download(path: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target', includePathPattern: '**/*', bucket: 'a-automation', path: './')
+          s3Download(path: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target', includePathPattern: '**/*.war', bucket: 'a-automation', path: './')
         }
       }
     }
