@@ -27,14 +27,14 @@ pipeline{
     stage('s3 upload'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Upload(includePathPattern: '**/*.war', bucket: 'a-automation', path: './')
+          s3Upload(bucket: 'a-automation', includePathPattern: '**/*.war', path: './')
         }
       }
     }
     stage('s3 download'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Download(includePathPattern: '**/*.war', bucket: 'a-automation', path: './')
+          s3Download(bucket: 'a-automation', includePathPattern: '**/*.war', path: './')
         }
       }
     }
