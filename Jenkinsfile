@@ -39,7 +39,7 @@ pipeline{
     stage('s3 download'){
       steps{
         withAWS(credentials: 'aws'){
-          s3Download (bucket: 'a-automation', file: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target/FRIENDS9-0.0.1-SNAPSHOT.war', path: 'apps/FRIENDS9-0.0.1-SNAPSHOT.war', force: 'true')
+          s3Download (bucket: 'a-automation', file: 'apps/FRIENDS9-0.0.1-SNAPSHOT.war', path: './', force: 'true')
         }
       }
     }
