@@ -27,11 +27,11 @@ pipeline{
     stage('upload to s3'){
       steps{
         s3Upload consoleLogLevel: 'INFO', 
-        dontSetBuildResultOnFailure: true, 
+        dontSetBuildResultOnFailure: false, 
         dontWaitForConcurrentBuildCompletion: false, 
-        entries: [[bucket: 'a-automation', 
+        entries: [[bucket: '', 
                    excludedFile: '', 
-                   flatten: false, 
+                   flatten: true, 
                    gzipFiles: false, 
                    keepForever: false, 
                    managedArtifacts: true, 
@@ -46,7 +46,7 @@ pipeline{
         profileName: 's3', 
         userMetadata: []
       }
-    }    
+    }
     stage('Ansible Deployment'){
       steps{
         sh '''
