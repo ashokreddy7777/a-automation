@@ -24,25 +24,29 @@ pipeline{
         }
       }
     }
-    stage('s3 upload'){
+    stage('upload to s3'){
       steps{
-        withAWS(credentials: 'aws'){
-          s3Upload (pathStyleAccessEnabled: 'true', bucket: 'a-automation', file: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/target/FRIENDS9-0.0.1-SNAPSHOT.war', path: 'apps/')
-        }
+        s3Upload consoleLogLevel: 'INFO', 
+        dontSetBuildResultOnFailure: true, 
+        dontWaitForConcurrentBuildCompletion: false, 
+        entries: [[bucket: 'a-automation', 
+                   excludedFile: '', 
+                   flatten: false, 
+                   gzipFiles: false, 
+                   keepForever: false, 
+                   managedArtifacts: true, 
+                   noUploadOnFailure: true, 
+                   selectedRegion: 'us-east-1', 
+                   showDirectlyInBrowser: false, 
+                   sourceFile: '**/*.war', 
+                   storageClass: 'STANDARD', 
+                   uploadFromSlave: true, 
+                   useServerSideEncryption: false]], 
+        pluginFailureResultConstraint: 'FAILURE', 
+        profileName: 's3', 
+        userMetadata: []
       }
-    }
-    stage('ws cleanup'){
-      steps{
-        cleanWs()
-      }
-    }
-    stage('s3 download'){
-      steps{
-        withAWS(credentials: 'aws'){
-          s3Download (pathStyleAccessEnabled: 'true', bucket: 'a-automation', file: 'apps/FRIENDS9-0.0.1-SNAPSHOT.war', path: '/home/ak/jenkins_home/workspace/a-automation_CI_feature_ashok/', force: 'true')
-        }
-      }
-    }
+    }    
     stage('Ansible Deployment'){
       steps{
         sh '''
@@ -50,6 +54,10 @@ pipeline{
         '''    
       }
     }
-    
+    stage('ws cleanup'){
+      steps{
+        cleanWs()
+      }
+    }
   }
 }
