@@ -6,14 +6,14 @@ pipeline {
   }
   agent {label 'lin'}
   stages {
-    stage (Docker Build) {
+    stage ('Docker Build') {
       steps{
         script {
           dockerImage = docker.build imagename
         }
       }
     }
-    stage (Docker Push) {
+    stage ('Docker Push') {
       steps{
         script{
           docker.withRegistry ('', registryCredential) {
