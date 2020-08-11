@@ -1,40 +1,26 @@
-pipeline{
-  agent{label 'lin'}
-  options{timeout (time: 1, unit:'HOURS')}
-  tools{
-    maven 'maven'
-    jdk 'java'
+pipeline {
+  environment {
+    imagename = 'ashokreddy7777/docker_tomcat'
+    registryCredential = 'DockerHub-ashokreddy7777'
+    dockerImage = ''
   }
-  stages{
-    stage('Build && SonarQube analysis'){
+  agent {label 'lin'}
+  stages {
+    stage (Docker Build) {
       steps{
-        withSonarQubeEnv ('sonarqube'){
-        sh '''
-            echo "PATH = ${PATH}"
-            echo "M2_HOME = ${M2_HOME}"
-            mvn -X clean package sonar:sonar
-        '''     
-        } 
-      }
-    }
-    stage('Quality Gate'){
-      steps{
-        timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
+        script {
+          dockerImage = docker.build imagename
         }
       }
     }
-    stage('Tomcat Deploy'){
+    stage (Docker Push) {
       steps{
-        sh '''
-           cp /home/ak/jenkins_home/workspace/a-automation/friends-9-application/target/FRIENDS9-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/
-           /opt/tomcat/bin/startup.sh
-        '''    
-      }
-    }
-    stage('ws cleanup'){
-      steps{
-        cleanWs()
+        script{
+          docker.withRegistry ('', registryCredential) {
+            dockerImage.push("$BUILD_NUMBER")
+            dockerImage.push('latest')
+          }
+        }
       }
     }
   }
