@@ -1,6 +1,8 @@
 FROM tomcat:9.0
 
-COPY f9.war /
+COPY f9.war /usr/local/tomcat/webapps/
+
+EXPOSE 8080
 
 
 CMD ["catalina.sh", "run"]
