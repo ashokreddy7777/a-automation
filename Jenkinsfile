@@ -11,7 +11,7 @@ pipeline{
         sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
-            mvn -X clean package sonar:sonar
+            mvn -X package sonar:sonar
         '''     
         } 
       }
