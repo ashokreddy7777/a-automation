@@ -1,5 +1,4 @@
 pipeline{
-  agent{label 'lin'}
   options{timeout (time: 1, unit:'HOURS')}
   tools{
     maven 'maven'
@@ -22,14 +21,6 @@ pipeline{
         timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
         }
-      }
-    }
-    stage('Tomcat Deploy'){
-      steps{
-        sh '''
-           cp /home/ak/jenkins_home/workspace/a-automation/friends-9-application/target/FRIENDS9-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/
-           /opt/tomcat/bin/startup.sh
-        '''    
       }
     }
     stage('ws cleanup'){
