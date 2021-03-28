@@ -1,5 +1,5 @@
 pipeline{
-  agent{label 'lin'}
+  agent any //{label 'lin'}
   options{timeout (time: 1, unit:'HOURS')}
   tools{
     maven 'maven'
