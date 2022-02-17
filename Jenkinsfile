@@ -1,23 +1,22 @@
 pipeline{
-  agent{label 'lin'}
+  agent any
   options{timeout (time: 1, unit:'HOURS')}
   tools{
     maven 'maven'
-    jdk 'java'
   }
   stages{
     stage('Build && SonarQube analysis'){
       steps{
-        withSonarQubeEnv ('sonarqube'){
+        //withSonarQubeEnv ('sonarqube'){
         sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
-            mvn -X clean package sonar:sonar
+            mvn -X clean package
         '''     
         } 
       }
     }
-    stage('Quality Gate'){
+    /*stage('Quality Gate'){
       steps{
         timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
@@ -36,6 +35,6 @@ pipeline{
       steps{
         cleanWs()
       }
-    }
+    }*/
   }
 }
