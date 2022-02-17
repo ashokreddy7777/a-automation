@@ -13,7 +13,7 @@ pipeline{
             echo "M2_HOME = ${M2_HOME}"
             mvn -X clean package
         '''     
-        } 
+   
       }
     }
     /*stage('Quality Gate'){
